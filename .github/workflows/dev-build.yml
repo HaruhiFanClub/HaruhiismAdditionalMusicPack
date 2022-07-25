@@ -1,13 +1,6 @@
 name: dev-build
 
 on:
-    push:
-        branches:
-            - main
-        paths:
-            - 'resourcepack/**'
-        tags-ignore:
-            - 'v*'
     workflow_dispatch:
 
 jobs:
