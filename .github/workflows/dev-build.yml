@@ -1,0 +1,32 @@
+name: dev-build
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - 'resourcepack/**'
+        tags-ignore:
+            - 'v*'
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Set environment variables
+              run: |
+                  echo "CI_VERSION=`echo rev.${GITHUB_SHA:0:7}-build.${{github.run_number}}`" >> $GITHUB_ENV
+
+            - name: Replace variables
+              run: |
+                  sed -i -e 's/${version}/'"${{env.CI_VERSION}}"'/g' resourcepack/pack.mcmeta
+
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@v1
+              with:
+                  name: HaruhiismAdditionalMusicPack-${{env.CI_VERSION}}
+                  path: resourcepack
