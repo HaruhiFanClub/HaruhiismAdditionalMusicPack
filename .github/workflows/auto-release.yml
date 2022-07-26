@@ -26,7 +26,7 @@ jobs:
             - name: Zip resourcepack
               uses: edgarrc/action-7z@v1
               with:
-                  args: 7z a "HaruhiismAdditionalMusicPack-${{env.VERSION}}.zip" ./resourcepack/*
+                  args: 7z a "HaruhiismAdditionalMusicPack-${{env.VERSION}}.zip" ./resourcepack/* LICENSE
 
             - name: Github release
               uses: softprops/action-gh-release@v1
